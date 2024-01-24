@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trafikklys med Timer</title>
+    <style>
+        #trafikklys{
+            width: 210px;
+            height: 700px;
+            background-color: #4e4c4c;
+            border-radius: 5em;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            padding: 15px;
+        }
+       
+        .rød {
+            background-color: red;
+            opacity: 10%;
+        }
+
+        .orange{
+            background-color: orange;
+            opacity: 10%;
+        }
+        .grønn{
+            background-color: green;
+            opacity: 10%;
+        }
+
+        .sirkel{
+            box-shadow: -5px 10px 20px 10px black inset ;
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            
+        }
+
+        .active{
+            opacity: 100%;
+        }
+    
+    </style>
+</head>
+<body onload="ActiveLights('rød')">
+
+    <div id="trafikklys">
+        <div id="rød" class="rød sirkel"></div>
+        <div id="orange" class="orange sirkel"></div>
+        <div id="grønn" class="grønn sirkel"></div>
+    </div>
+
+    <button onclick="ActiveLights('rød')">rød</button>
+    <button onclick="ActiveLights('orange')">orange</button>
+    <button onclick="ActiveLights('grønn')">grønn</button>
+
+    <script>
+        function ActiveLights(current_lights) {
+            document.getElementById('rød').classList.remove('active');
+            document.getElementById('orange').classList.remove('active');
+            document.getElementById('grønn').classList.remove('active');
+
+            document.getElementById(current_lights).classList.add('active');
+
+            let next_lights;
+            let time_delay;
+
+            if (current_lights == 'rød') {
+                next_lights = 'orange';
+                time_delay = 2000;
+            }
+            else if (current_lights == 'rød' || current_lights == 'orange') {
+                next_lights = 'grønn';
+                time_delay = 1000;
+            }
+            else {
+                next_lights = 'rød';
+                time_delay = 3000;
+            }
+
+            setTimeout(() => ActiveLights(next_lights), time_delay);
+        }
+
+    </script>
+    
+</body>
+
+</html>
