@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stoppeklokke</title>
+    <style>
+        .wrapper{
+            background-color: blueviolet;
+            height: 220px;
+            width: 220px;
+            border-radius: 50%;
+            padding: 20px;
+        }
+        .clockButton{
+            margin-top: 20px;
+            margin-left: 15px;
+            border-radius: 50%;
+            height:55px;
+            width: 50px;
+        }
+
+        .clockDisplay{
+            height:20px;
+            width:40px;
+            border: 1px solid black;
+            margin-top: 10px;
+            margin-left: 100px;
+            background-color: antiquewhite;
+        }
+
+        .roundsList{
+            background-color: antiquewhite;
+            height:50px;
+            width:90px;
+            border: 1px solid black;
+            margin-left: 50px;
+            font-size: x-small;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <button class="clockButton" onclick="startTimer()">Start Timer!</button> 
+    <button class="clockButton" onclick="pauseTimer()">Pause</button>
+    <button class="clockButton" onclick="stopAll()">Stopp &Fjern</button><br>
+    
+    <div id="app" class="clockDisplay"></div>  
+    RUNDETIDER:
+    <div id="lastRound" class="roundsList"> </div> <br>
+</div>
+
+    <script>
+        const app = document.getElementById('app');
+        const roundTime = document.getElementById('lastRound');
+
+        // 
+
+        let seconds = 0;
+        let timer;
+
+        function startTimer() {
+            // Sjekker om 'timer' variabelen er null eller undefined.
+            // Hvis 'timer' ikke har en aktiv interval-ID (dvs. klokken er ikke startet),
+            // så starter vi klokken.
+            if (!timer) { 
+                timer = setInterval(countSeconds, 1000); 
+            }
+        }
+
+        function countSeconds() {
+            seconds++;
+            app.innerHTML = seconds;
+        }
+
+        function pauseTimer() { 
+            // Sjekker om 'timer' variabelen har en aktiv interval-ID,
+            // som indikerer at klokken kjører.
+            if (timer) {
+                roundTime.innerHTML += `<li>${seconds - 1}sekunder</li>`;
+                clearInterval(timer);
+
+                timer = null; // Nullstiller 'timer' variabelen, som indikerer at det ikke lenger
+                seconds = 0;
+            }
+        }
+
+        function stopAll(){
+            location.reload()
+        }
+
+    </script>
+</body>
+</html>
