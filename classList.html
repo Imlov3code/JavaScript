@@ -35,9 +35,9 @@
 
     <script>
         const chosenColorDiv = document.getElementById('chosenColorDiv');
-        let chosenColor = "";
-        let chosenDiv =  document.getElementById('chosenColorDiv');
+        let chosenDiv = document.getElementById('chosenColorDiv');
 
+        let chosenColor = "";
         
         function chooseColor(chosenHEX){
             chosenColor = chosenHEX;
@@ -46,9 +46,14 @@
         }
 
         function selectDiv(clickedDiv){ 
-            chosenDiv.classList.remove("selectedDiv");
+            if (chosenDiv == null) {
+                chosenDiv.classList.add("selectedDiv");
+            }
+            else {
+                chosenDiv.classList.remove("selectedDiv");
+            }
+    
             chosenDiv = clickedDiv;
-            chosenDiv.classList.toggle("selectedDiv");
             clickedDiv.style.backgroundColor = chosenColor;
         }
 
