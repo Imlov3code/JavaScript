@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manuell Girkasse</title>
+    <style>
+        .girkasse {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            background-color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    
+        .gir {
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            position: absolute;
+            border: 2px solid #000;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+    
+        .gir:hover {
+            background-color: #bbb;
+        }
+    
+        /* Posisjonering av girene i et H-mønster */
+        #gir-1 { top: 20px; left: 20px; }
+        #gir-2 { top: 120px; left: 20px; }
+        #gir-3 { top: 20px; left: 80px; }
+        #gir-4 { top: 120px; left: 80px; }
+        #gir-5 { top: 20px; left: 140px; }
+        #gir-r { top: 120px; left: 140px; } /* Revers plassert ved siden av 5. gir */
+    </style>
+    
+</head>
+<body>
+    <div class="girkasse">
+        <div class="gir" id="gir-1">1</div>
+        <div class="gir" id="gir-2">2</div>
+        <div class="gir" id="gir-3">3</div>
+        <div class="gir" id="gir-4">4</div>
+        <div class="gir" id="gir-5">5</div>
+        <div class="gir" id="gir-r">R</div>
+    </div>
+</body>
+</html>
