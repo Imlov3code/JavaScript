@@ -58,14 +58,14 @@
         // 
 
         let seconds = 0;
-        let timer;
+        var timer = null;
 
         function startTimer() {
             // Sjekker om 'timer' variabelen er null eller undefined.
             // Hvis 'timer' ikke har en aktiv interval-ID (dvs. klokken er ikke startet),
             // så starter vi klokken.
-            if (!timer) { 
-                timer = setInterval(countSeconds, 1000); 
+            if (timer == null) { 
+                timer = setInterval(countSeconds, 500); 
             }
         }
 
