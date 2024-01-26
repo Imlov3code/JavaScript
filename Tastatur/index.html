@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tastatur oppgaven</title>
+
+        <style>
+            /*css*/
+            .button {
+                margin: 5px;
+                padding: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <input type="text" id="tekstfelt">
+    
+        <button class="button" onclick="LeggTilTekst(this)">A</button>
+        <button class="button" onclick="LeggTilTekst(this)">B</button>
+        <button class="button" onclick="LeggTilTekst(this)">C</button>
+     
+        <script>
+            function LeggTilTekst(InnerHTML) {
+                const tekst_felt = document.getElementById('tekstfelt');
+                tekst_felt.value += InnerHTML.innerText;
+            }
+        </script>
+    </body>
+</html>
