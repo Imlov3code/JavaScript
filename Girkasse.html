@@ -60,14 +60,14 @@
 </head>
 
 <body>
-    <div class="container" onclick="GearShiftUp();">
+    <div class="container">
         <!-- Gir-posisjoner -->
-        <div class="gir" id="gir-1" style="grid-area: area1;">1</div>
-        <div class="gir" id="gir-2" style="grid-area: area2;">2</div>
-        <div class="gir" id="gir-3" style="grid-area: area3;">3</div>
-        <div class="gir" id="gir-4" style="grid-area: area4;">4</div>
-        <div class="gir" id="gir-5" style="grid-area: area5;">5</div>
-        <div class="gir" id="gir-r" style="grid-area: areaR;">R</div> 
+        <div class="gir" id="gir-1" onclick="GearShiftUp()"   style="grid-area: area1;">1</div>
+        <div class="gir" id="gir-2" onclick="GearShiftUp()"   style="grid-area: area2;">2</div>
+        <div class="gir" id="gir-3" onclick="GearShiftUp()"   style="grid-area: area3;">3</div>
+        <div class="gir" id="gir-4" onclick="GearShiftUp()"   style="grid-area: area4;">4</div>
+        <div class="gir" id="gir-5" onclick="GearShiftUp()" style="grid-area: area5;">5</div>
+        <div class="gir" id="gir-r" onclick="GearShiftDown()" style="grid-area: areaR;">R</div> 
 
         <!-- Skillelinjer -->
         <div style="grid-area: empty1;" class="gir right"></div>
@@ -85,24 +85,28 @@
     </div>
 
     <script>
-        // UpdateGearDisplay();
         var current_gear_index = 0;
 
         function GearShiftUp() {
             if (current_gear_index < 5) {
                 current_gear_index++;
             }
+            else if (current_gear_index === 5) {
+                current_gear_index = 'R';
+            }
 
-            // kalling en funksjoner som oppdatters gir display
             UpdateGearDisplay();
+            //GearShiftDown();
         }
 
         function GearShiftDown() {
-            if (current_gear_index > 1) {
+            if (current_gear_index === 'R') {
+                current_gear_index = 5;
+            }
+            else if (current_gear_index > 1) {
                 current_gear_index--;
             }
 
-            // kalling en funksjoner som oppdatters gir display
             UpdateGearDisplay();
         }
 
