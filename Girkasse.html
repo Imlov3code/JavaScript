@@ -2,56 +2,132 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Manuell Girkasse</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manuell GirKasse</title>
+
     <style>
-        .girkasse {
-            width: 200px;
-            height: 200px;
-            position: relative;
-            background-color: #333;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-    
-        .gir {
-            width: 50px;
-            height: 50px;
-            background-color: #fff;
+        .container {
+            border: 10px solid black;
+            padding: 30px;
             border-radius: 50%;
-            text-align: center;
-            line-height: 50px;
-            position: absolute;
-            border: 2px solid #000;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            width: 300px;
+            background-color: black;
+            font-size: 300%;
+            font-family: Arial, Helvetica, sans-serif;
+            display: grid;
+            grid-template-columns: repeat(6, 50px);
+            grid-template-rows: repeat(6, 50px);
+            grid-template-areas:
+                "area1 area1 area3 area3 area5 area5"
+                "area1 area1 area3 area3 area5 area5"
+                "empty1 empty2 empty3 empty4 empty5 empty6"
+                "empty7 empty8 empty9 empty10 empty11 empty12"
+                "area2 area2 area4 area4 areaR areaR"
+                "area2 area2 area4 area4 areaR areaR"
+            ;
         }
-    
-        .gir:hover {
-            background-color: #bbb;
+
+        button {
+            font-size: 100%;
+            background-color: #555555;
+            color: white;
         }
-    
-        /* Posisjonering av girene i et H-mønster */
-        #gir-1 { top: 20px; left: 20px; }
-        #gir-2 { top: 120px; left: 20px; }
-        #gir-3 { top: 20px; left: 80px; }
-        #gir-4 { top: 120px; left: 80px; }
-        #gir-5 { top: 20px; left: 140px; }
-        #gir-r { top: 120px; left: 140px; } /* Revers plassert ved siden av 5. gir */
+
+        /*girkasse desginer*/
+        .gir {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 80%;
+            font-family: arial, Arial, Helvetica, sans-serif;
+        }
+
+        /* active class (bruke som classList (add)(remove))*/
+        .gir.active {
+            color: white; 
+            background-color: #4CAF50; 
+            border-color: #388E3C; 
+        }
+
+        /* Grid */
+        .selected { color: yellow; }
+        .left { border-left: 1px solid white; }
+        .right { border-right: 1px solid white; }
+        .top { border-top: 1px solid white; }
+        .bottom { border-bottom: 1px solid white; }
     </style>
-    
 </head>
+
 <body>
-    <div class="girkasse">
-        <div class="gir" id="gir-1">1</div>
-        <div class="gir" id="gir-2">2</div>
-        <div class="gir" id="gir-3">3</div>
-        <div class="gir" id="gir-4">4</div>
-        <div class="gir" id="gir-5">5</div>
-        <div class="gir" id="gir-r">R</div>
+    <div class="container" onclick="GearShiftUp();">
+        <!-- Gir-posisjoner -->
+        <div class="gir" id="gir-1" style="grid-area: area1;">1</div>
+        <div class="gir" id="gir-2" style="grid-area: area2;">2</div>
+        <div class="gir" id="gir-3" style="grid-area: area3;">3</div>
+        <div class="gir" id="gir-4" style="grid-area: area4;">4</div>
+        <div class="gir" id="gir-5" style="grid-area: area5;">5</div>
+        <div class="gir" id="gir-r" style="grid-area: areaR;">R</div> 
+
+        <!-- Skillelinjer -->
+        <div style="grid-area: empty1;" class="gir right"></div>
+        <div style="grid-area: empty2;" class="gir bottom"></div>
+        <div style="grid-area: empty3;" class="gir bottom right"></div>
+        <div style="grid-area: empty4;" class="gir bottom"></div>
+        <div style="grid-area: empty5;" class="gir bottom right"></div>
+        <div style="grid-area: empty6;" class="gir"></div>
+        <div style="grid-area: empty7;" class="gir right"></div>
+        <div style="grid-area: empty8;" class="gir"></div>
+        <div style="grid-area: empty9;" class="gir right"></div>
+        <div style="grid-area: empty10;" class="gir"></div>
+        <div style="grid-area: empty11;" class="gir right"></div>
+        <div style="grid-area: empty12;" class="gir"></div>
     </div>
+
+    <script>
+        // UpdateGearDisplay();
+        var current_gear_index = 0;
+
+        function GearShiftUp() {
+            if (current_gear_index < 5) {
+                current_gear_index++;
+            }
+
+            // kalling en funksjoner som oppdatters gir display
+            UpdateGearDisplay();
+        }
+
+        function GearShiftDown() {
+            if (current_gear_index > 1) {
+                current_gear_index--;
+            }
+
+            // kalling en funksjoner som oppdatters gir display
+            UpdateGearDisplay();
+        }
+
+        function UpdateGearDisplay() {
+            // Fjern 'active' klassen fra alle gir
+            document.getElementById('gir-1').classList.remove('active');
+            document.getElementById('gir-2').classList.remove('active');
+            document.getElementById('gir-3').classList.remove('active');
+            document.getElementById('gir-4').classList.remove('active');
+            document.getElementById('gir-5').classList.remove('active');
+            document.getElementById('gir-r').classList.remove('active');
+
+            var active_gear_id;
+
+            if (current_gear_index === 'R') {
+                active_gear_id = 'gir-r';
+            }
+            else {
+                active_gear_id = 'gir-' + current_gear_index;
+            }
+
+            if (current_gear_index != 0) {
+                document.getElementById(active_gear_id).classList.add('active');
+            }
+        }
+    </script>
 </body>
 </html>
