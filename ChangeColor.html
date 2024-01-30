@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Color Changer</title>
+        <style>
+            .background-color-blue {
+                background-color: blue;
+            }
+
+            .background-color-red {
+                background-color: red;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <div id="ChangeColor">Dette er min Tekst</div>
+            <button onclick="ChangeColorToBlue()">Color Blue</button>
+            <button onclick="ChangeColorToRed()">Color Red</button>
+            <button onclick="IsChangeColor()">IsChangeColor</button>
+        </div>
+    </body>
+
+    <script>
+        const color_element = document.getElementById("ChangeColor");
+        
+        function ChangeColorToBlue() {
+            color_element.classList.remove('background-color-red');
+            color_element.classList.add('background-color-blue');
+        }
+
+        function ChangeColorToRed() {
+            color_element.classList.remove('background-color-blue');
+            color_element.classList.add('background-color-red');
+        }
+
+        let is_changer_color = false;
+
+        function IsChangeColor() {
+            if (is_changer_color) {
+                color_element.classList.remove('background-color-blue');
+                color_element.classList.add('background-color-red');
+            }
+            else {
+                color_element.classList.remove('background-color-red');
+                color_element.classList.add('background-color-blue');
+            }
+
+            is_changer_color = !is_changer_color;
+        }
+
+    </script>
+    
+</html>
