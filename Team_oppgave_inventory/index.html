@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventory Filler</title>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f4f4f4;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+
+            #game {
+                width: 300px;
+                text-align: center;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            }
+
+            #items {
+                margin-bottom: 20px;
+            }
+
+            .item {
+                margin: 5px;
+                padding: 10px;
+                font-size: 16px;
+                border: 1px solid #ddd;
+                background-color: #eee;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            .item:hover {
+                background-color: #ddd;
+            }
+
+            #inventory {
+                border: 4px solid #666;
+                border-radius: 8px;
+                padding: 10px;
+                margin-top: 30px;
+                background-color: #fafafa;
+                display: none;
+            }
+
+            #inventory h2 {
+                margin-top: 0;
+                color: #333;
+            }
+
+            #inventoryList {
+                list-style: none;
+                padding: 0;
+            }
+
+            #inventoryList li {
+                border-bottom: 1px solid #eee;
+                padding: 5px 0;
+            }
+
+            #toggleButton {
+                margin-top: 20px;
+                padding: 10px 20px;
+                background-color: #008CBA;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+
+            #toggleButton:hover {
+                background-color: #007B9E;
+            }
+
+            .hidden {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="game">
+            <div id="items">
+                <div class="item" onclick="toggleItem('Star')">&#9733; Star</div>
+                <div class="item" onclick="toggleItem('Heart')">&#10084; Heart</div>
+                <div class="item" onclick="toggleItem('Diamond')">&#9830; Diamond</div>
+                <div class="item" onclick="toggleItem('Spade')">&#9824; Spade</div>
+            </div>
+
+            <button id="toggleButton" onclick="toggleInventory()">Show/Hide Inventory</button>
+
+            <div id="inventory" class="hidden">
+                <h2>Your Inventory</h2>
+                <li id="inventoryList"></li>
+            </div>
+        </div>
+
+        <script>
+            function toggleInventory() {
+                const inventory_div = document.getElementById("inventory");
+                let display_style;
+
+                if (inventory_div.style.display === "none") {
+                    display_style = "block";
+                } 
+                else if (inventory_div.style.display === "") {
+                    display_style = "block";
+                }
+                else {
+                    display_style = "none";
+                }
+
+                inventory_div.style.display = display_style;
+            }
+
+            let global_inventory = {};
+ 
+            function toggleItem(item) {
+                if (global_inventory[item]) {
+                    global_inventory[item]++; // Npå om det finnes et element med dette navnet, legger vi til 1 til antall elementer.
+                } else {
+                    global_inventory[item] = 1; // Når det ikke finnes noen elementer i inventory, legger vi til et element med antall 1.
+                }
+
+                //console.log(item);
+                //console.log(global_inventory[item]);
+
+                updateInventoryDisplay();
+            }
+
+            function RemoveItem(item) {
+                if (global_inventory[item]) {
+                    global_inventory[item]--;
+                }
+
+                 // Når antall elementer er 0, sletter vi direkte hele elementet
+                if (global_inventory[item] == 0) {
+                    delete global_inventory[item];
+                }
+
+                updateInventoryDisplay();
+            }
+
+            function updateInventoryDisplay() {
+                let listHTML = '';
+
+                for (let item in global_inventory) {
+                    listHTML += `
+                    <li>${item} x${global_inventory[item]} 
+                        <button onclick = "RemoveItem('${item}')"> remove one item </button> 
+                    </li>
+                    `;
+                }
+
+                document.getElementById("inventoryList").innerHTML = listHTML;
+            }
+
+        </script>
+    </body>
+
+</html>
