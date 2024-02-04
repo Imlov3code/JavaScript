@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="NO">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lys Opggave</title>
+        <style>
+            #lightbulb {
+                width: 80px;
+                height: 120px;
+                background-color: grey;
+                border-radius: 40px 40px 10px 10px; /* Rund topp og litt flatere bunn for lyspæren */
+                position: relative;
+                margin: 20px auto;
+                transition: background-color 0.5s, box-shadow 0.5s; /* Glatte overganger */
+            }
+
+            /* Sokkelen til lyspæren */
+            #lightbulb::after {
+                content: "";
+                position: absolute;
+                bottom: -20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 30px;
+                height: 20px;
+                background-color: #1b1d1a;
+                border-radius: 5px;
+                box-shadow: 0 2px 4px rgba(146, 124, 124, 0.4); /* Legger til en liten skygge under sokkelen */
+            }
+
+            .light-on {
+                background-color: yellow;
+                box-shadow: 0 0 20px yellow; /* Glød rundt lyspæren */
+            }
+
+            .light-off {
+                background-color: #bbb;
+                box-shadow: none;
+            }
+        </style>
+
+        <body>
+            <div id="lightbulb"></div>
+            <div onclick="ToggleLight()">Trykke meg</div>
+        </body>
+
+        <script>
+            const lightbulb = document.getElementById('lightbulb');
+
+            let is_light_on = false;
+
+            function ToggleLight() {
+                is_light_on = !is_light_on;
+
+                if (is_light_on) {
+                    lightbulb.style.backgroundColor = 'orange';
+                    lightbulb.classList.add('light-on');
+                    lightbulb.classList.remove('light-off');
+                    lightbulb.textContent = 'Lights On'; // Oppdaterer tekst direkte hvis ønskelig
+                } else {
+                    lightbulb.style.backgroundColor = 'grey';
+                    lightbulb.classList.add('light-off');
+                    lightbulb.classList.remove('light-on');
+                    lightbulb.textContent = 'Lights Off'; // Oppdaterer tekst direkte hvis ønskelig
+                }
+            }
+        </script>
+    </head>
+</html>

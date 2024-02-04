@@ -152,10 +152,11 @@
                 let listHTML = '';
 
                 for (let item in global_inventory) {
-                    listHTML += `
-                    <li>${item} x${global_inventory[item]} 
-                        <button onclick = "RemoveItem('${item}')"> remove one item </button> 
-                    </li>
+                    listHTML += 
+                    `
+                        <li>${item} x${global_inventory[item]} 
+                            <button onclick = "RemoveItem('${item}')"> remove one item </button> 
+                        </li>
                     `;
                 }
 
