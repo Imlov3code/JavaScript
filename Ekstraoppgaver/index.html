@@ -161,17 +161,17 @@
         }
 
         function updateHealthBars() {
-            let playerHPPercent = (player_hp / 200) * 100;
-            let bowserHPPercent = (bowser_hp / 300) * 100;
+            let player_hp_percent = (player_hp / 200) * 100;
+            let bowser_hp_percent = (bowser_hp / 300) * 100;
 
-            if (playerHPPercent < 0) { playerHPPercent = 0; }
-            if (bowserHPPercent < 0) { bowserHPPercent = 0; }
+            if (player_hp_percent < 0) { player_hp_percent = 0; }
+            if (bowser_hp_percent < 0) { bowser_hp_percent = 0; }
 
-            //console.log("Currently player :" + Math.floor(playerHPPercent) + "%");
-            //console.log("Currently bowser :" + Math.floor(bowserHPPercent) + "%");
+            //console.log("Currently player :" + Math.floor(player_hp_percent) + "%");
+            //console.log("Currently bowser :" + Math.floor(bowser_hp_percent) + "%");
 
-            document.getElementById('playerHPBar').style.width = playerHPPercent + '%';
-            document.getElementById('bowserHPBar').style.width = bowserHPPercent + '%';
+            document.getElementById('playerHPBar').style.width = player_hp_percent + '%';
+            document.getElementById('bowserHPBar').style.width = bowser_hp_percent + '%';
 
             document.getElementById('playerHPDisplay').innerText = player_hp;
             document.getElementById('bowserHPDisplay').innerText = bowser_hp;
