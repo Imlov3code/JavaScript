@@ -173,6 +173,8 @@
             document.getElementById('bowserHPDisplay').innerText = bowser_hp;
         }
 
+        const result_message = document.getElementById('resultMessage');
+
         function ClickOnAttackButton(char_obj) {
             if (char_obj === 'player') {
                 bowser_hp = bowser_hp - Math.random() * 50;
@@ -181,7 +183,7 @@
                 //console.log("bowser hp:" + Math.floor(bowser_hp) + "%");
 
                 if (bowser_hp <= 0) {
-                    document.getElementById('resultMessage').innerText = 'Gratulerer, Du vant!';
+                    result_message.innerText = 'Gratulerer, Du vant!';
                     bowser_hp = 0; 
                 }
             } 
@@ -192,7 +194,7 @@
                 //console.log("player hp:" + Math.floor(player_hp) + "%");
 
                 if (player_hp <= 0) {
-                    document.getElementById('resultMessage').innerText = 'Dessverre, Bowser vant!';
+                    result_message.innerText = 'Dessverre, Bowser vant!';
                     player_hp = 0; 
                 }
             }
