@@ -114,6 +114,12 @@
         <img src="yoshi.png" alt="Yoshi" onclick="selectCharacter('Yoshi', 80)">
     </div>
 
+    <!-- vi kan bruke battleArea til å designe bruken av rekvisitter, 
+        og rekvisitter (legg til noen .png)
+        java funksjoner kan øke verdien til rekvisitter, for eksempel 
+        (angrepskraft eller forsvarskraft) 
+    -->
+
     <div id="battleArea" style="display: none;">
         <div class="stats">
             <div id="playerStats" class="stat">
@@ -160,6 +166,7 @@
             let player_hp_percent = (player_hp / 200) * 100;
             let bowser_hp_percent = (bowser_hp / 300) * 100;
 
+            // ikke la prosentandelen av HP være mindre enn 0. Hvis den er -1, tilordne en verdi på 0.
             if (player_hp_percent < 0) { player_hp_percent = 0; }
             if (bowser_hp_percent < 0) { bowser_hp_percent = 0; }
 
@@ -177,7 +184,12 @@
 
         function ClickOnAttackButton(char_obj) {
             if (char_obj === 'player') {
+                // vi kan legge til her. Hvis det er rekvisitter, 
+                // bruk variabler for å få verdier. 
+                // bruk matematiske algoritmer for å legge til variabler.
                 bowser_hp = bowser_hp - Math.random() * 50;
+
+                // Det er et flyttall og må konverteres til et heltall ved hjelp av Math.floor xDD
                 bowser_hp = Math.floor(bowser_hp);
 
                 //console.log("bowser hp:" + Math.floor(bowser_hp) + "%");
