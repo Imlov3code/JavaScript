@@ -75,16 +75,11 @@
             background-size: cover;
         }
 
-        .hp-bar {
-            width: 100%;
-            background-color: #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .hp-fill {
+        #playerHPBar, #bowserHPBar {
             height: 20px;
             background-color: #f00;
+            border-radius: 5px;
+            overflow: hidden;
             width: 100%;
             transition: width 0.5s ease-in-out;
         }
@@ -123,11 +118,12 @@
         <div class="stats">
             <div id="playerStats" class="stat">
                 Spiller HP: <span id="playerHPDisplay"></span>
-                <div class="hp-bar"><div id="playerHPBar" class="hp-fill"></div></div>
+                <div id="playerHPBar"></div>
             </div>
+
             <div id="bowserStats" class="stat">
                 Bowser HP: <span id="bowserHPDisplay"></span>
-                <div class="hp-bar"><div id="bowserHPBar" class="hp-fill"></div></div>
+                <div id="bowserHPBar"></div>
             </div>
         </div>
         
