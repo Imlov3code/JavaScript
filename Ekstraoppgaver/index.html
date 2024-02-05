@@ -119,7 +119,6 @@
         java funksjoner kan øke verdien til rekvisitter, for eksempel 
         (angrepskraft eller forsvarskraft) 
     -->
-
     <div id="battleArea" style="display: none;">
         <div class="stats">
             <div id="playerStats" class="stat">
@@ -153,7 +152,22 @@
             document.getElementById('characterSelect').style.display = 'none';
             document.getElementById('battleArea').style.display = 'flex';
 
-            document.getElementById('player').style.backgroundImage = `url(${character}.png)`;
+            let imge_url;
+            
+            if (character === 'Mario') { 
+                imge_url = 'mario';
+            }
+            else if (character === 'Luigi') {
+                imge_url = 'luigi';
+            }
+            else if (character === 'Peach') {
+                imge_url = 'peach';
+            }
+            else if (character === 'Yoshi') {
+                imge_url = 'yoshi';
+            }
+
+            document.getElementById('player').style.backgroundImage = `url(${imge_url}.png)`;
             document.getElementById('bowser').style.backgroundImage = 'url(bowser.png)';
 
             player_hp = hp;
