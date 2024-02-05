@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Super Mario Kamp</title>
+    <style>
+        #characterSelect img {
+            width: 100px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #characterSelect img:hover {
+            transform: scale(1.1);
+        }
+
+        #characterSelect img, #player, #bowser {
+            width: 100px;
+            height: 150px;
+        }
+
+        #battleArea {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .stats {
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            margin: 10px 0;
+        }
+
+        .hp {
+            font-weight: bold;
+        }
+
+        .combatants {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .combatant {
+            width: 150px;
+            height: 150px;
+            background-size: cover;
+            border: 2px solid white;
+            border-radius: 10px;
+        }
+
+        .actions .action-btn {
+            background-color: #FFA500;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .actions .action-btn:hover {
+            background-color: #FF4500;
+        }
+
+        #player, #bowser {
+            width: 250px;
+            height: 250px;
+            background-size: cover;
+        }
+
+        .hp-bar {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .hp-fill {
+            height: 20px;
+            background-color: #f00;
+            width: 100%;
+            transition: width 0.5s ease-in-out;
+        }
+
+        button {
+            background-color: #FFA500;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #FF4500;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="characterSelect">
+        <!-- legg til flere karakterer ... etter behovs -->
+        <img src="mario.png" alt="Mario" onclick="selectCharacter('Mario', 200)">
+        <img src="luigi.png" alt="Luigi" onclick="selectCharacter('Luigi', 140)">
+        <img src="peach.png" alt="Peach" onclick="selectCharacter('Peach', 100)">
+        <img src="yoshi.png" alt="Yoshi" onclick="selectCharacter('Yoshi', 80)">
+    </div>
+
+    <div id="battleArea" style="display: none;">
+        <div class="stats">
+            <div id="playerStats" class="stat">
+                Spiller HP: <span id="playerHPDisplay"></span>
+                <div class="hp-bar"><div id="playerHPBar" class="hp-fill"></div></div>
+            </div>
+            <div id="bowserStats" class="stat">
+                Bowser HP: <span id="bowserHPDisplay"></span>
+                <div class="hp-bar"><div id="bowserHPBar" class="hp-fill"></div></div>
+            </div>
+        </div>
+        
+        <div class="combatants">
+            <div id="player" class="combatant"></div>
+            <div id="bowser" class="combatant"></div>
+        </div>
+
+        <div class="actions">
+            <div id="resultMessage">Kampen pågår</div>
+            <button id="playerAttack" class="action-btn" onclick="ClickOnAttackButton('player')">Angrip Bowser</button>
+            <button id="bowserAttack" class="action-btn" onclick="ClickOnAttackButton('bowser')">Bowser Angriper</button>
+        </div>
+    </div>
+    
+    <script>
+        let player_hp;
+        let bowser_hp;
+
+        function selectCharacter(character, hp) {
+            document.getElementById('characterSelect').style.display = 'none';
+            document.getElementById('battleArea').style.display = 'flex';
+
+            document.getElementById('player').style.backgroundImage = `url(${character}.png)`;
+            document.getElementById('bowser').style.backgroundImage = 'url(bowser.png)';
+
+            player_hp = hp;
+            bowser_hp = 300;
+
+            updateHealthBars();
+        }
+
+        function updateHealthBars() {
+            let playerHPPercent = (player_hp / 200) * 100;
+            let bowserHPPercent = (bowser_hp / 300) * 100;
+
+            if (playerHPPercent < 0) { playerHPPercent = 0; }
+            if (bowserHPPercent < 0) { bowserHPPercent = 0; }
+
+            //console.log("Currently player :" + Math.floor(playerHPPercent) + "%");
+            //console.log("Currently bowser :" + Math.floor(bowserHPPercent) + "%");
+
+            document.getElementById('playerHPBar').style.width = playerHPPercent + '%';
+            document.getElementById('bowserHPBar').style.width = bowserHPPercent + '%';
+
+            document.getElementById('playerHPDisplay').innerText = player_hp;
+            document.getElementById('bowserHPDisplay').innerText = bowser_hp;
+        }
+
+        function ClickOnAttackButton(char_obj) {
+            if (char_obj === 'player') {
+                bowser_hp = bowser_hp - Math.random() * 50;
+                bowser_hp = Math.floor(bowser_hp);
+
+                //console.log("bowser hp:" + Math.floor(bowser_hp) + "%");
+
+                if (bowser_hp <= 0) {
+                    document.getElementById('resultMessage').innerText = 'Gratulerer, Du vant!';
+                    bowser_hp = 0; 
+                }
+            } 
+            else { 
+                player_hp = player_hp - Math.random() * 30;
+                player_hp = Math.floor(player_hp);
+
+                //console.log("player hp:" + Math.floor(player_hp) + "%");
+
+                if (player_hp <= 0) {
+                    document.getElementById('resultMessage').innerText = 'Dessverre, Bowser vant!';
+                    player_hp = 0; 
+                }
+            }
+
+            // Oppdaterer helsebaren hver gang et angrep finner sted
+            updateHealthBars(); 
+        }
+    </script>
+</body>
+</html>
