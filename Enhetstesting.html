@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enhetstesting - Eksempel</title>
+</head>
+<body>
+    <h1>Enhetstesting Eksempel</h1>
+    <div>
+        <label for="inputText">Skriv inn tekst:</label>
+        <input type="text" id="inputText" placeholder="Tekst her...">
+        <button onclick="testRoversprak()">Test Røverspråk</button>
+    </div>
+    <div id="result"></div>
+
+    <script>
+        // En enkel funksjon som simulerer røverspråk ved å doble hver konsonant og sette en 'o' mellom dem
+        function toRoversprak(text) {
+            return text.replace(/([bcdfghjklmnpqrstvwxyz])/gi, '$1o$1');
+        }
+
+        // En enkel test for å se at funksjonen virker som den skal
+        function testRoversprak() {
+            const inputText = document.getElementById('inputText').value;
+            const translated = toRoversprak(inputText);
+            document.getElementById('result').innerText = `Resultat: ${translated}`;
+        }
+
+        function TestDiffLoop() {
+            //const obj = {a, b, c, d};
+            const obj_num = [1, 2, 3, 4];
+            for (const key in obj_num) {
+                console.log(key);
+            }
+        }
+
+        TestDiffLoop();
+
+    </script>
+</body>
+</html>

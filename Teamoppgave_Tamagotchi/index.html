@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tamagotchi</title>
+    <link rel="stylesheet" href="style.css"/>
+    <style>
+   
+      .meter1 {
+        width: 150px;
+        height: 50px;
+        margin-top: -10px;
+      }
+      .meter1::-webkit-meter-optimum-value {
+        background: rgb(0, 164, 0);
+      }
+
+      .meter2::-webkit-meter-optimum-value {
+        background: rgb(231, 231, 7);
+      }
+
+      .meter3::-webkit-meter-optimum-value {
+        background: rgb(221, 67, 149);
+      }
+
+      .meter4::-webkit-meter-optimum-value {
+        background: rgba(45, 213, 211, 0.973);
+      }
+
+      .label {
+        width: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .labelContainer {
+        display: flex;
+        justify-content: center;
+      }
+      .btnContainer {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .btnServe {
+        width: 100px;
+        padding: 5px 5px;
+        border-radius: 10px;
+        border: solid 0px transparent;
+        cursor: pointer;
+        background-color: rgb(245, 222, 193);
+        color: brown;
+        font-weight: 600;
+      }
+      .btnServe:hover {
+        background-color: rgb(230, 182, 121);
+      }
+
+      #pusheen {
+        display: flex;
+        justify-content: center;
+        height: 500px;
+      }
+
+      #newOwner {
+        display: flex;
+        justify-content: center;
+      }
+      
+      #resetButton {
+        display: flex;
+        justify-content: center;
+        height: 25px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script>
+      let pusheenGif = `<img src="pusheen-happy.gif">`;
+      let food = 100;
+      let water = 100;
+      let hygiene = 100;
+      let play = 100;
+      let timerFood, timerWater, timerPlay, timerHygiene;
+      let lowestStatus;
+      
+      const app = document.getElementById("app");
+      updateView();
+      timer();
+      function updateView() {
+        app.innerHTML =
+          /*HTML*/
+          `<div class="labelContainer">
+      <div class="label">
+        <label id="labelFood">Food ${food}%</label>
+        <meter class="meter1" value="${food}" min="0" max="100"></meter>
+      </div>
+      <div class="label">
+        <label id="labelWater">Water ${water}%</label>
+        <meter class="meter1 meter2" value="${water}" min="0" max="100"></meter>
+      </div>
+      <div class="label">
+        <label id="labelPlay">Play ${play}%</label>
+        <meter class="meter1 meter3" value="${play}" min="0" max="100"></meter>
+      </div>
+      
+      <div class="label">
+        <label id="labelHygiene">Hygiene ${hygiene}%</label>
+        <meter class="meter1 meter4" value="${hygiene}" min="0" max="100"></meter>
+        </div>
+        </div>
+        <div id="pusheen">${pusheenGif}</div>
+        
+        <div class="btnContainer">
+          <button class="btnServe" onclick="serve('food')">Food</button>
+          <button class="btnServe" onclick="serve('water')">Water</button>
+          <button class="btnServe" onclick="serve('play')">Play</button>
+          <button class="btnServe" onclick="serve('hygiene')">Clean</button>
+          </div>
+          `;
+      }
+
+      function SelectPet(PetName) {
+        if (PetName == 'Stormy') {
+            pusheenGif = `<img src="pusheen-hungry.gif">`;
+        }
+
+        food = 100;
+        water = 100;
+        hygiene = 100;
+        play = 100;
+
+        updateView();
+        timer();
+
+        document.querySelector('.pet_section').style.display = 'none';
+        app.style.display = 'block';
+      }
+
+      function timer() {
+        timerFood = setInterval(function () {
+          food -= randomTimer(10);
+          food = food <= 0 ? 0 : food;
+          checkStatus();
+        }, 3500);
+
+        timerWater = setInterval(function () {
+          water -= randomTimer(5);
+          water = water <=0 ? 0 : water
+          checkStatus();
+        }, 3500);
+
+        timerPlay = setInterval(function () {
+          play -= randomTimer(5);
+          play = play <= 0 ? 0 : play;
+          checkStatus();
+        }, 3500);
+
+        timerHygiene = setInterval(function () {
+          hygiene -= randomTimer(5);
+          hygiene = hygiene <= 0 ? 0 : hygiene;
+          checkStatus();
+        }, 3500);
+      }
+
+      function randomTimer(num) {
+        return Math.floor(Math.random() * num) + 1;
+      }
+
+      function randomNumber(num) {
+        return Math.floor(Math.random() * num) + 10;
+      }
+
+      function serve(ele) {
+        if (ele === "food") {
+          console.log(food);
+          food += randomNumber(10);
+          food = food > 100 ? 100 : food < 0 ? 0 : food;
+          pusheenGif = /*HTML*/ `<img src="pusheen-eating.gif">`;
+          console.log(food);
+        } else if (ele === "water") {
+          console.log(water);
+          water += randomNumber(10);
+          water = water > 100 ? 100 : water < 0 ? 0 : water;
+          pusheenGif = /*HTML*/ `<img src="pusheen-tea.gif">`;
+          console.log(water);
+        } else if (ele === "play") {
+          console.log(play);
+          play += randomNumber(10);
+          play = play > 100 ? 100 : play < 0 ? 0 : play;
+          pusheenGif = /*HTML*/ `<img src="pusheen-play.gif">`;
+          console.log(play);
+        } else {
+          console.log(hygiene);
+          hygiene += randomNumber(10);
+          hygiene = hygiene > 100 ? 100 : hygiene < 0 ? 0 : hygiene;
+          pusheenGif = /*HTML*/ `<img src="pusheen-litter-after_bg.gif">`;
+          console.log(hygiene);
+        }
+        updateView();
+        setTimeout(() => checkStatus(), 1500);
+      }
+
+
+      function checkStatus() {
+        lowestStatus = Math.min(food, water, hygiene, play);
+
+        if (lowestStatus <= 50) {
+          setStatus();
+        } else {
+          defaultStatus();
+        }
+        updateView();
+
+        if (lowestStatus <= 0) {
+          lowestStatus = 0;
+          clearInterval(timerFood);
+          clearInterval(timerWater);
+          clearInterval(timerPlay);
+          clearInterval(timerHygiene);
+          gameOver();
+        }
+      }
+
+      function defaultStatus() {
+        pusheenGif = /*HTML*/ `<img src="pusheen-happy.gif">`;
+      }
+
+      function setStatus() {
+        console.log("setStatus Initial");
+
+        if (lowestStatus === food) {
+          pusheenGif = /*HTML*/ `<img src="pusheen-hungry.gif">`;
+        } else if (lowestStatus === water) {
+          pusheenGif = /*HTML*/ `<img src="pusheen-thirsty.gif">`;
+        } else if (lowestStatus === hygiene) {
+          pusheenGif = /*HTML*/ `<img src="pusheen-litter_bg.gif">`;
+        } else if (lowestStatus === play) {
+          pusheenGif = /*HTML*/ `<img src="pusheen-tired.gif">`;
+        }
+      }
+
+      function gameOver() {
+        app.innerHTML = /*HTML*/ `
+        <div id="gameOver">
+            <p>GAME OVER!</p>
+        </div>
+        <div id="resetButton"><button class="btnServe" onclick="tryAgain()">Try again?</button></div>
+        <div id="newOwner">
+           <div><h3>Pusheen is finding a new owner on finn.no</h3>
+             <img src="pusheen-laptop.gif">
+            </div>
+        </div>
+        `;
+      }
+
+      function tryAgain() {
+        location.reload();
+      }
+    </script>
+  </body>
+</html>

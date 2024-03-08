@@ -1,0 +1,160 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 1000px;
+  background-color: rgb(209, 191, 142);
+}
+
+#text {
+  float: left;
+  margin-top: 700px;
+}
+
+#root, #app {
+  width: 1000px;
+  height: 700px;
+  position: absolute;
+  background-image: url("./road-moving-forward-stock-animation.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: -20;
+  border-radius: 20px;
+  margin-left: 270px;
+}
+
+#car {
+  position: absolute;
+  z-index: -1;
+  width: 1000px;
+  height: 700px; 
+  margin: auto;
+}
+
+.objimg {
+  width: 200px;
+  position:absolute;
+  z-index: 2;
+  margin-top:-690px;
+  margin-left: 40%;
+}
+
+.carimg {
+  width: 100%; 
+  height: 100%; 
+  position: absolute;
+  z-index: 9999;
+}
+
+.road1 {
+  width: 50%;
+  right: 0;
+  height: 500px;
+  background: linear-gradient(30deg, rgb(30, 30, 30) 60%, white 60%);
+  z-index: -3;
+  position: absolute;
+}
+
+.road2 {
+  width: 50%;
+  height: 500px;
+  background: linear-gradient(150deg, white 38%, rgb(30, 30, 30) 38%);
+  z-index: -3;
+  position: absolute;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  background-color: rgb(48, 44, 44);
+  z-index: 20;
+}
+
+.hidden {
+  display: none;
+}
+
+.reset {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+.game-status-text {
+  font-family: "Sixtyfour", sans-serif;
+  font-optical-sizing: auto;
+  font-size: 36px;
+  font-weight: 400;
+  color: rgb(198, 191, 191);
+  font-style: normal;
+  animation: blink 1s infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes blink {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.play-again-button, .btn {
+  padding: 5px 20px;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  color: rgb(48, 44, 44);
+  background-color: rgb(198, 191, 191);
+}
+
+.play-again-button:hover, .btn:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+
+#coolnessBarContainer {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%; 
+  height: 25px;
+  background-color: #ccc;
+  border-radius: 12px; /* 圆角效果 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#coolnessBar {
+  height: 100%;
+  background-color: green;
+  width: 0%; 
+  border-radius: 10px; 
+  transition: width 0.5s ease;
+}
+
+#gameStatus {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.btn {
+  padding: 5px 15px;
+  border-radius: 20px;
+  background-color: rgb(157, 64, 64);
+  color: rgb(223, 220, 220);
+}

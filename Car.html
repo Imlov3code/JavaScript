@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cool Car Game</title>
+    <style>
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    background-color: #8cc0de; /* 更明亮的天空蓝色背景 */
+}
+
+.road {
+    background-image: url('road_background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    animation: scrollRoad 10s linear infinite;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50vh;
+}
+
+@keyframes scrollRoad {
+    from { background-position: 0 100%; }
+    to { background-position: 0 0; }
+}
+
+.car {
+    position: absolute;
+    bottom: 15vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 120px;
+    background: url('car_image.png') no-repeat center center;
+    background-size: contain;
+    animation: drive 1s infinite alternate;
+}
+
+@keyframes drive {
+    0%, 100% { bottom: 15vh; }
+    50% { bottom: 18vh; }
+}
+
+#coolnessBarContainer {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 25px;
+    background-color: #ccc;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#coolnessBar {
+    height: 100%;
+    background-color: #76b852;
+    width: 0%;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+#gameStatus {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #333;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="road"></div>
+    <div class="car" id="car"></div>
+    <div id="gameStatus">Coolness: <span id="coolMeter">0</span></div>
+    <div id="event"></div>
+    <div id="coolnessBarContainer">
+        <div id="coolnessBar"></div>
+    </div>
+    
+    <script>
+        const coolMeter = document.getElementById('coolMeter');
+        const coolnessBar = document.getElementById('coolnessBar');
+        const eventDiv = document.getElementById('event');
+        let coolness = 0;
+        const maxCoolness = 100;
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === " ") drive(); // Spacebar to drive
+        });
+
+        function drive() {
+            const items = ['Spoiler', 'Neon Lights', 'Stickers', 'Aggressive Grandma'];
+            let randomEvent = items[Math.floor(Math.random() * items.length)];
+            handleEvent(randomEvent);
+        }
+
+        function handleEvent(event) {
+            switch(event) {
+                case 'Aggressive Grandma':
+                    adjustCoolness(-5, 'An aggressive grandma hits your car with her purse! Coolness -5.');
+                    break;
+                case 'Spoiler':
+                case 'Neon Lights':
+                case 'Stickers':
+                    adjustCoolness(10, `You found ${event} and added it to your car! Coolness +10.`);
+                    break;
+                default:
+                    meetFriend();
+                    break;
+            }
+        }
+
+        function meetFriend() {
+            const greetings = ['Wave', 'Fist Bump', 'Nod'];
+            let friendCoolnessFactor = Math.floor(Math.random() * 3);
+            let correctGreeting = greetings[friendCoolnessFactor];
+            eventDiv.innerHTML = `You meet a friend. Choose how to greet:<br>` +
+                                greetings.map((g, i) => `<button onclick="greet(${i}, ${friendCoolnessFactor})">${g}</button>`).join('');
+        }
+
+        window.greet = function(index, correctIndex) {
+            if (index === correctIndex) {
+                adjustCoolness(10, 'You greeted correctly. Coolness +10.');
+            } else {
+                adjustCoolness(-5, 'Wrong greeting! Try again.');
+            }
+        };
+
+        function adjustCoolness(amount, message) {
+            coolness = Math.min(maxCoolness, Math.max(0, coolness + amount));
+            coolMeter.textContent = coolness;
+            coolnessBar.style.width = `${coolness}%`;
+            eventDiv.textContent = message;
+            if (coolness >= maxCoolness) document.body.innerHTML = '<h1>You reached maximum coolness! You win!</h1>';
+        }
+    </script>
+</body>
+</html>
